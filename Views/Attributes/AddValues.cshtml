@@ -1,0 +1,83 @@
+﻿@model InventoryWorld.Models.Attributes
+@{
+    ViewData["Title"] = "AddValue";
+}
+<p>
+    <a onclick="ShowModal444()">
+        <input type="button" id="Addvaluebtn" onclick="" class="btn btn-primary" value="Add Value" />
+    </a>
+</p>
+<div class="box">
+<input type="hidden" id="AttbributeId" value="@Model.Id"/>
+    <div class="box-header"> <h4>Attribute : @Model.AttributeName</h4> </div>
+</div>
+<div class="box">
+    <div class="box-body">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Attribute Values
+                    </th>
+                   
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if( Model.Value is not null){
+
+                @foreach (var item in Model.Value)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item)
+                            </td>
+
+                           
+
+                            <td >
+                                <a onclick="EditAttrValue('@item')"> <i class="fa fa-edit"></i>Edit</a> |
+                                <a onclick="DeleteAttr('@item')" ><i class="fa fa-trash"></i>Delete</a>
+                            </td>
+                        </tr>
+                    }
+                }  
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+<div class="modal" id="AddValueModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="attmodaltitle"></h3>
+            </div>
+            <div class="modal-body">
+                <div class="mb-2">
+                    <label id="AttvalueReadonlylb" style="display:none">Current Value </label>
+                    <input type="text" id="AttvalueReadonly" class="form-control" readonly style="display:none" placeholder="Current Value of @Model.AttributeName" />
+                </div>
+                <div class=" mb-2">
+                    <label id="Attlabel"> Attribute Value </label>
+                   
+                    <input type="text"  id="Attvalue"class="form-control" placeholder="Enter Attribute Value of @Model.AttributeName"/>
+                  
+                </div>
+               
+            </div> 
+            <div class="modal-footer">
+               <button class="btn btn-primary" id="SaveAtt" type="submit" onclick="InsertAttValue()">Save</button>
+                <button class="btn btn-sucess" id="UpdateAtt" type="submit" style="display:none" onclick="UpdateAttValue()">Update</button>
+                <button class="btn btn-sucess" id="RemoveAtt" type="submit" style="display:none" onclick="DeleteAtrrValue()">Remove</button>
+                <button class="btn btn-danger"  data-bs-dismiss="modal"  type="submit" onclick="HideAttModal()">Close</button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

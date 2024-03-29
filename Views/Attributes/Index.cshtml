@@ -1,0 +1,63 @@
+﻿@model IEnumerable<InventoryWorld.Models.Attributes>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="box">
+
+    <div class="box-header">
+<p>
+            <a asp-action="Create">
+                <input type="button" class="btn btn-primary" value="Create" />
+            </a>
+</p>
+    </div>
+    <div>
+<table class="table table-bordered table-hove">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AttributeName)
+            </th>
+            <th>
+                Total @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AttributeName)
+            </td>
+            <td>
+                            @if(item.Value is not null)
+                            {
+                                @item.Value.Count
+
+                            }
+                            else
+                            {
+                                @Html.Raw("0")
+                            }
+
+             
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="AddValues" asp-route-id="@item.Id">AddValue</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>

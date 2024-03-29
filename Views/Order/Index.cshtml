@@ -1,0 +1,80 @@
+﻿@model IEnumerable<InventoryWorld.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div class="box">
+<div class="box-body">
+
+
+
+<p>
+            <a asp-action="Create">
+                <input type="button" class="btn btn-primary" value="Create New Order" />
+            </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                        @Html.DisplayNameFor(model => model.PaymentStatus)
+            </th>
+                    <th>
+
+                    </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                            @if (item.PaymentStatus == true)
+                            {
+                                @Html.Raw("Paid")
+                            }
+                            else
+                            {
+                                @Html.Raw("Unpaid")
+                            }
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
+                            @if (item.PaymentStatus == false)
+                            {
+                                <a asp-action="PayOrder" asp-route-id="@item.OrderId">Pay for Order</a>
+                            }
+               
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+</div>

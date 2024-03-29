@@ -1,0 +1,86 @@
+﻿@model IEnumerable<AppUser>
+@inject AppDbContext context
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<AppUser> usermanager
+@{
+
+
+}
+<a asp-action="AddUser">
+    <input type="button" class="btn btn-primary" value="Create" />
+</a>
+<div class="box">
+    <div class="box-body">
+        <div class="box-header">
+            <h3>Application Users</h3>
+        </div>
+
+        <table class="table table-bordered table-hover">
+          <thead>
+              <tr>
+                  <th>
+                      @Html.DisplayNameFor(model=> model.FirstName)
+                  </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+
+
+                    <th>
+                       Role
+                    </th>
+                    <th>Status</th>
+                    <th>
+                        Actions
+                    </th>
+              </tr>
+          </thead>
+          <tbody>
+
+                @foreach(var item in Model)
+                {
+                    <tr>
+
+                        <td>@Html.DisplayFor(modelItem=> item.FirstName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                        @if (item.UserName == null || item.UserName == "")
+                        {
+                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        }
+                        else
+                        {
+                            <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                        }
+                        
+                        <td>@usermanager.GetRolesAsync(item).Result.FirstOrDefault()</td>
+                        <td>
+                            @if(item.UserName== null || item.UserName=="")
+                            {
+                                @Html.Raw("Inactive <span style=\\\"color:red\\\">●</span>")
+
+                            }
+                            else
+                            {
+                                @Html.Raw("Active <span style=\\\"color:green\\\">●</span>")
+                            }
+                        </td>
+                        <td>
+                            @if (item.FirstName != null)
+                            {
+                                <a asp-action="Disable" asp-route-id="@item.Id">Disable</a>
+                            }
+                            |
+                           | <a asp-action="Enable" asp-route-id="@item.Id">Enable</a> 
+                        </td>
+                    </tr>
+                }
+
+          </tbody>
+
+        </table>
+    </div>
+</div>

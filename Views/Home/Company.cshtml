@@ -1,0 +1,70 @@
+﻿@model InventoryWorld.Models.Company
+
+@{
+    ViewData["Title"] = "Company";
+}
+
+
+<div class="box">
+    <div class="box-body">
+        <div class="box-header">
+
+            <h2>Company</h2>
+        </div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Company">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServiceCharge" class="control-label"></label>
+                <input asp-for="ServiceCharge" class="form-control" />
+                <span asp-validation-for="ServiceCharge" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VatCharge" class="control-label"></label>
+                <input asp-for="VatCharge" class="form-control" />
+                <span asp-validation-for="VatCharge" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Country" class="control-label"></label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency" class="control-label"></label>
+                <input asp-for="Currency" class="form-control" />
+                <span asp-validation-for="Currency" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.Raw(@ViewBag.Alert)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

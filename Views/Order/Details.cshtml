@@ -1,0 +1,125 @@
+﻿@model InventoryWorld.Models.Order
+@inject AppDbContext _context 
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<a onclick="printSection('.mySection')">
+    <input type="button" class="btn btn-primary" value="Print Current Order" />
+</a>
+<div class="box mySection">
+
+
+   <div class="box-body">
+    <h4>Order @Model.OrderNo Details</h4>
+    <hr />
+      
+    <dl class="">
+            <div class="col-md-6">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderNo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderNo)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+                <br />
+        <dt>
+
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
+          <br />     
+                @{
+                    var sb = new System.Text.StringBuilder();
+
+                    foreach (var item in Model.OrderItems)
+                    {
+                        var product = _context.Products.FirstOrDefault(x => x.Id == item.ProductId).Name;
+                        sb.AppendLine(product + "=> " + item.Quantity + "pieces" + Html.Raw("<br />"));
+
+                    }
+                    var allproducts = sb.ToString();
+                }
+               <dt>
+                    @Html.Raw("Products")
+               </dt>
+               <dd>
+                    @Html.Raw(allproducts)
+               </dd>
+               <br />
+            </div>
+            <div class="col-md-6">
+        <dt>
+       
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+                <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentStatus)
+        </dt>
+        <dd>
+                    @if (Model.PaymentStatus==false)
+                    {
+                        @Html.Raw("Upaid")
+                    }
+                    else
+                    {
+                        @Html.Raw("Upaid")
+                    }
+                  
+        </dd>
+        <br />
+                @{
+                    decimal totalamount= 0 ;
+                    foreach (var item in Model.OrderItems)
+                    {
+                        totalamount += item.Amount;
+                    }
+               }
+
+                <dt>@Html.Raw("Amount") </dt>
+                <dd>
+                    @Html.Raw(totalamount.ToString())
+                </dd>
+                <br />
+
+            </div>
+
+    </dl>
+    <br />
+        <br />
+        <div class="row col-md-4">
+    <a asp-action="PayOrder" asp-route-id="@Model.OrderId">Pay for Order</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+    </div>
+</div>
+
+ <script>
+
+
+
+        function printSection(sectionSelector) {
+            var content = $(sectionSelector).clone().find("a").remove().end().html()
+            var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+            WinPrint.document.write(content);
+            WinPrint.document.close();
+            WinPrint.focus();
+            WinPrint.print();
+        }
+     
+
+ </script>

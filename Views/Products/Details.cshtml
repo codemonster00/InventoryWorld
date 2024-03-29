@@ -1,0 +1,85 @@
+﻿@model InventoryWorld.Models.Products
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="box">
+<div class="box-body">
+        <div class="box-header"><h4>Products</h4></div>
+    <hr />
+    <dl class="">
+        <div class="col-md-6">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+            <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+            <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+            <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Sku)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sku)
+        </dd>
+            <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+         
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+            <br />
+            </div>
+            <div class="col-md-6">
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand.BrandName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Brand.BrandName)
+        </dd>
+            <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Store.StoresName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Store.StoresName)
+        </dd>
+            <br id="AttributeFinder" />
+                @foreach (var attribute in ViewBag.attributes)
+                {
+                    <dt> @Html.DisplayName(attribute.Attribute.AttributeName)</dt>
+                    <dd>@Html.Raw(attribute.Value)</dd>
+                    <br />
+                }
+            </div>
+    </dl>
+
+<div class="row col-md-4">
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+</div>
+
+<script>
+
+
+</script>
+
